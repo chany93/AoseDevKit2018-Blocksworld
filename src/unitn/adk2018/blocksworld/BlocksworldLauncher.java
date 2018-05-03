@@ -58,7 +58,7 @@ public abstract class BlocksworldLauncher {
 		 * Setup domain
 		 */
 		PddlDomain pddlDomain = new PddlDomain("blocks-domain");
-		Environment.getEnvironment().pddlDomain = pddlDomain;
+		Environment.setPddlDomain(pddlDomain);
 		// Actions of the PDDL domain
 		pddlDomain.addSupportedAction ("pickup", Pickup_action.class);
 		pddlDomain.addSupportedAction ("putdown", Putdown_action.class);
@@ -78,8 +78,8 @@ public abstract class BlocksworldLauncher {
 		envAgent.addSupportedEvent(PddlAction_msg.class, PddlAction_intention.class);
 		envAgent.addSupportedEvent(Sensing_msg.class, Sensing_intention.class);
 		// Env
-		Environment.getEnvironment().addAgent (envAgent);
-		Environment.getEnvironment().setEnvironmentAgent (envAgent);
+		Environment.addAgent (envAgent);
+		Environment.setEnvironmentAgent (envAgent);
 		envAgent.startInSeparateThread();
 		
 		
@@ -108,7 +108,7 @@ public abstract class BlocksworldLauncher {
 		r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepPutdownAskHelp_intention.class);
 		r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepDoItByMyself_intention.class);
 		// Env
-		Environment.getEnvironment().addAgent (r1Agent);
+		Environment.addAgent (r1Agent);
 		r1Agent.startInSeparateThread();
 		
 		
@@ -132,7 +132,7 @@ public abstract class BlocksworldLauncher {
 		r2Agent.addSupportedEvent(PddlStep_goal.class, PddlStepUnstackAskHelp_intention.class);
 		r2Agent.addSupportedEvent(PddlStep_goal.class, PddlStepDoItByMyself_intention.class);
 		// Env
-		Environment.getEnvironment().addAgent (r2Agent);
+		Environment.addAgent (r2Agent);
 		r2Agent.startInSeparateThread();
 		
 		
@@ -176,7 +176,7 @@ public abstract class BlocksworldLauncher {
 		 */
 		String[] pickupArgs = {r1, block_b, block_a};
 		Message msg0 = new PddlAction_msg( "God", env, "unstack", pickupArgs );
-		Environment.getEnvironment().sendMessage ( msg0 );
+		Environment.sendMessage ( msg0 );
 		
 		WakeUpOnTimer w = new WakeUpOnTimer();
 		System.err.println("First test wait, 2400 msecs, at " + envAgent.getAgentTime());
@@ -192,7 +192,7 @@ public abstract class BlocksworldLauncher {
 		 * Notify blocksRobot of everything in the world with Clause INFORM Messages
 		 */
 		for(PddlClause clause : envAgent.getBeliefs().getACopyOfDeclaredClauses().values()) {
-			Environment.getEnvironment().sendMessage ( new Clause_msg( "God", r1, clause ) );
+			Environment.sendMessage ( new Clause_msg( "God", r1, clause ) );
 		}
 		
 		
@@ -211,7 +211,7 @@ public abstract class BlocksworldLauncher {
 		PddlClause[] pddlGoal = { Blocksworld.sayHolding(r1, block_b) };
 		Goal g1 = new ReachPddlGoal_goal( pddlGoal );
 		Message msg1 = new Request_msg( "God", r1, g1 );
-		Environment.getEnvironment().sendMessage ( msg1 );
+		Environment.sendMessage ( msg1 );
 		
 		System.err.println("Third test wait, 5000 msecs, at " + envAgent.getAgentTime());		
 		envAgent.rescheduleTimer(w,  5000);

@@ -27,7 +27,7 @@ public class PddlStepStackAskHelp_intention extends Intention<PddlStep_goal> {
 		PddlClause[] pddlGoal = { Blocksworld.sayBlockOn( in.event.args[1], in.event.args[2] ) };
 		Goal g1 = new ReachPddlGoal_goal( pddlGoal );
 		reqMsg = new Request_msg( agent.getName(), nameOfAgentToAskForHelp, g1 );
-		Environment.getEnvironment().sendMessage ( reqMsg );
+		Environment.sendMessage ( reqMsg );
 		return waitUntil( this::stepEnd, reqMsg.wasHandled() ); //wait until request has been succeeded then continue
 	}
 	
