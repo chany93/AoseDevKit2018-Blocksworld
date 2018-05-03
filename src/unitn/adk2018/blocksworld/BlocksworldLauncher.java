@@ -68,15 +68,39 @@ public abstract class BlocksworldLauncher {
 		
 		
 		/*
+		 * Setup problem
+		 */
+		String block_a = "a";
+		String block_b = "b";
+		String env = "env";
+		String r1 = "r1";
+		String r2 = "r2";
+		
+		
+		
+		/*
 		 * Setup environmentAgent
 		 */
-		String env = "env";
 		Agent envAgent = new General_agent(env, true);
 		// Goals
 		envAgent.addSupportedEvent(Postman_goal.class, PostmanEverythingInParallel_intention.class);
 		// Messages
 		envAgent.addSupportedEvent(PddlAction_msg.class, PddlAction_intention.class);
 		envAgent.addSupportedEvent(Sensing_msg.class, Sensing_intention.class);
+		// Beliefs
+		envAgent.getBeliefs().declareObject( r1 );
+		envAgent.getBeliefs().declareObject( block_a );
+		envAgent.getBeliefs().declareObject( block_b );
+		// Setup 1
+//		envAgent.getBeliefs().declare( Blocksworld.sayFree(r1) );
+//		envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_a) );
+//		envAgent.getBeliefs().declare( Blocksworld.sayBlockOn(block_b, block_a) );
+//		envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_b) );
+		// Setup 2
+		envAgent.getBeliefs().declare( Blocksworld.sayFree(r1) );
+		envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_a) );
+		envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_a) );
+		envAgent.getBeliefs().declare( Blocksworld.sayHolding(r2, block_b) );
 		// Env
 		Environment.addAgent (envAgent);
 		Environment.setEnvironmentAgent (envAgent);
@@ -84,14 +108,9 @@ public abstract class BlocksworldLauncher {
 		
 		
 		
-		Thread.sleep(100);
-		
-		
-		
 		/*
 		 * Setup robot 1 agent
 		 */
-		String r1 = "r1";
 		Agent r1Agent = new General_agent(r1, true);
 		r1Agent.addSupportedEvent(Postman_goal.class, PostmanOneRequestAtTime_intention.class);
 		// Messages
@@ -116,7 +135,6 @@ public abstract class BlocksworldLauncher {
 		/*
 		 * Setup robot 2 agent
 		 */
-		String r2 = "r2";
 		Agent r2Agent = new General_agent(r2, true);
 		r2Agent.addSupportedEvent(Postman_goal.class, PostmanOneRequestAtTime_intention.class);
 		// Messages
@@ -134,36 +152,6 @@ public abstract class BlocksworldLauncher {
 		// Env
 		Environment.addAgent (r2Agent);
 		r2Agent.startInSeparateThread();
-		
-		
-		
-		/*
-		 * Setup world
-		 */
-		PddlWorld world = envAgent.getBeliefs();
-		
-		String block_a = "a";
-		String block_b = "b";
-
-		world.declareObject( r1 );
-		world.declareObject( block_a );
-		world.declareObject( block_b );
-		
-		/*
-		 * Setup 1
-		 */
-//		world.declare( Blocksworld.sayFree(r1) );
-//		world.declare( Blocksworld.sayBlockOnTable(block_a) );
-//		world.declare( Blocksworld.sayBlockOn(block_b, block_a) );
-//		world.declare( Blocksworld.sayBlockClear(block_b) );
-		
-		/*
-		 * Setup 2
-		 */
-		world.declare( Blocksworld.sayFree(r1) );
-		world.declare( Blocksworld.sayBlockOnTable(block_a) );
-		world.declare( Blocksworld.sayBlockClear(block_a) );
-		world.declare( Blocksworld.sayHolding(r2, block_b) );
 		
 		
 		
@@ -219,17 +207,23 @@ public abstract class BlocksworldLauncher {
 			w.wait();
 		}
 		System.err.println("End of third test wait at " + envAgent.getAgentTime());		
-
-		System.err.println("########## FULL DUMP ########");
-		r1Agent.printFullState();
-		r2Agent.printFullState();
-		envAgent.printFullState();
+		
+		
+		
+//		System.err.println("########## FULL DUMP ########");
+//		r1Agent.printFullState();
+//		r2Agent.printFullState();
+//		envAgent.printFullState();
+		
+		
 		
 //		Environment.pauseSimulationTime();
 //		Thread.sleep(5000);
 //		Environment.resumeSimulationTime();
 //		Thread.sleep(5000);
 //		System.exit(0);
+		
+		
 		
 	}
 	
