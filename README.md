@@ -29,7 +29,8 @@ In order to develop a pddl / multi-agent system for a specific domain it is need
 1. Create the pddl domain file in the root folder (see blocks-domain.pddl)
 2. Eventually create a class with shortcut methods to act on your pddl domain (see Blocksworld.java)
 3. Implement a Java version of all the actions available in your domain (see Pickup_action.java)
-4. Eventually extend PddlStep_intention to provide implementations for specific actions of the domain (see PddlStepDoItByMyself_intention)
+4. Eventually extend PddlStep_intention to provide implementations for specific actions of the domain (see PddlStepDoItByMyself_intention.java)
+5. Implement a main launcher script where agents are configured, started, and then messages are sended to them (see BlocksworldLauncher0.java)
 
 ### Implementation of a Pddl action in Java
 
@@ -81,3 +82,29 @@ public class Pickup_action extends PddlAction2Args {
 	
 }
 ```
+
+### Implementation of a launcher
+
+A launcher is used to set-up the simulation and eventually control it.
+Components to be configured are:
+
+1. the pddl domain
+2. variables for objects to be used in the specific problem
+3. environment agent
+	- agent control loop
+	- supported goals and messages and available intentions to handle each of them
+	- beliefset (the environment agent beliefset represents the world)
+4. other agents
+
+The script can then start to interact with the agents during the simulation.
+This can be done by:
+
+- sending messages to environment agent or to other ones
+- forces changes on the environment agent beliefset (to be avoided, it is preferred to send PddlClause messages handled internally by the env agent itself)
+- wait for a specific amount of time according to simulation time
+
+
+
+
+
+
