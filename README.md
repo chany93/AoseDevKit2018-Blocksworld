@@ -1,4 +1,14 @@
-# AoseDevKit2018-Blocksworld
+# AoseDevKit2018
+
+The AoseDevKit2018 framework has been implemented for the course of Agent Oriented Software Engineering at the University Of Trento (2018).
+The framework consists of three repositories:
+- *AoseDevKit2018-MultiAgentSystem: https://github.com/marcorobol/AoseDevKit2018-MultiAgentSystem*
+- *AoseDevKit2018-Generic: https://github.com/marcorobol/AoseDevKit2018-Generic*
+- *AoseDevKit2018-Blocksworld: https://github.com/marcorobol/AoseDevKit2018-Blocksworld*
+
+Introductory slides on the framework are available in the doc folder in the AoseDevKit2018-MultiAgentSystem repository.
+
+In the case of bugs to any of these, let us know or fix them and do a pull request.
 
 ## Installing and running
 
@@ -22,7 +32,12 @@ To do so follow these steps:
 5. To run right click on file unitn.adk2018.blocksworld.BlocksworldLauncher and select:
     > Run as -> Java Application
 
-## Quick start guide
+# AoseDevKit2018-Blocksworld
+
+This project is an implementation of the blocksworld domain with the AoseDevKit2018 framework.
+It contains Blocksworld domain-specific code: a Pddl domain file, java version of pddl actions, and a launcher script.
+
+## Quick start guide to the development of a different domain
 
 In order to develop a pddl / multi-agent system for a specific domain it is needed to:
 
@@ -102,7 +117,6 @@ This can be done by:
 - sending messages to environment agent or to other ones
 - forces changes on the environment agent beliefset (to be avoided, it is preferred to send PddlClause messages handled internally by the env agent itself)
 - wait for a specific amount of time according to simulation time
-
 
 
 
