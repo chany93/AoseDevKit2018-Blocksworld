@@ -39,7 +39,7 @@ It contains Blocksworld domain-specific code: a Pddl domain file, java version o
 
 ## Quick start guide to the development of a different domain
 
-In order to develop a pddl / multi-agent system for a specific domain it is needed to:
+Follow these steps to develop a pddl / multi-agent system for a specific domain:
 
 1. Create the pddl domain file in the root folder (see blocks-domain.pddl)
 2. Eventually create a class with shortcut methods to act on your pddl domain (see Blocksworld.java)
@@ -52,6 +52,8 @@ In order to develop a pddl / multi-agent system for a specific domain it is need
 Give a look at the methods in PddlClause and PddlWorld to interact with pddl agents beliefs.
 You can declare, undeclare, or check whether a clause is declared in a given world.
 A clause is composed by a predicate and zero, one, or more arguments.
+
+Follows an excerpt from the source code about the pickup action in the blocksworld domain.  
 
 ```pddl
 // blocks-domain.pddl
