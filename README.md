@@ -42,10 +42,10 @@ It contains Blocksworld domain-specific code: a Pddl domain file, java version o
 Follow these steps to develop a pddl / multi-agent system for a specific domain:
 
 1. Create the pddl domain file in the root folder (see blocks-domain.pddl)
-2. Eventually create a class with shortcut methods to act on your pddl domain (see Blocksworld.java)
+2. Possibly create a class with shortcut methods to act on your pddl domain (see Blocksworld.java)
 3. Implement a Java version of all the actions available in your domain (see Pickup_action.java)
 4. Eventually extend PddlStep_intention to provide implementations for specific actions of the domain (see PddlStepDoItByMyself_intention.java)
-5. Implement a main launcher script where agents are configured, started, and then messages are sended to them (see BlocksworldLauncher0.java)
+5. Implement a main launcher script where agents are configured, started, and then messages are sent to them to have them acting (see BlocksworldLauncher0.java)
 
 ### Implementation of a Pddl action in Java
 
@@ -53,7 +53,7 @@ Give a look at the methods in PddlClause and PddlWorld to interact with pddl age
 You can declare, undeclare, or check whether a clause is declared in a given world.
 A clause is composed by a predicate and zero, one, or more arguments.
 
-Follows an excerpt from the source code about the pickup action in the blocksworld domain.  
+An excerpt from the source code about the pickup action in the blocksworld domain follows:
 
 ```pddl
 // blocks-domain.pddl
