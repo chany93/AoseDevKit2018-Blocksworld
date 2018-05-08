@@ -109,13 +109,18 @@ Components to be configured are:
 	pddlDomain.addSupportedAction ("whateverActionName", WhateverAction.class);
 	```
 2. variables for objects to be used in the specific problem
-```java
-```
+	```java
+	String block_a = "a";
+	```
 3. environment agent and other agents
 	- agent type
-		```java Agent envAgent = new General_agent (env, true); ```
+		```java
+		Agent envAgent = new General_agent (env, true);
+		```
 	- supported goals and messages and available intentions to handle each of them
-		```java envAgent.addSupportedEvent (Postman_goal.class, PostmanEverythingInParallel_intention.class); ```
+		```java
+		envAgent.addSupportedEvent (Postman_goal.class, PostmanEverythingInParallel_intention.class);
+		```
 	- beliefset (the environment agent beliefset represents the world)
 		```java
 		envAgent.getBeliefs().declareObject ( block_a );
