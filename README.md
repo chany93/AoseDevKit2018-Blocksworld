@@ -1,14 +1,16 @@
 # AoseDevKit2018
 
 The AoseDevKit2018 framework has been implemented for the course of Agent Oriented Software Engineering at the University Of Trento (2018).
-The framework consists of three repositories:
-- *AoseDevKit2018-MultiAgentSystem: https://github.com/marcorobol/AoseDevKit2018-MultiAgentSystem*
-- *AoseDevKit2018-Generic: https://github.com/marcorobol/AoseDevKit2018-Generic*
-- *AoseDevKit2018-Blocksworld: https://github.com/marcorobol/AoseDevKit2018-Blocksworld*
-
 Introductory slides on the framework are available in the doc folder in the AoseDevKit2018-MultiAgentSystem repository.
+The framework includes three repositories. In the case of bugs, let us know or fix them and do a pull request. Start exploring by looking at readme files of the projects in this order:
+- *AoseDevKit2018-Blocksworld: https://github.com/marcorobol/AoseDevKit2018-Blocksworld*
+- *AoseDevKit2018-Generic: https://github.com/marcorobol/AoseDevKit2018-Generic*
+- *AoseDevKit2018-MultiAgentSystem: https://github.com/marcorobol/AoseDevKit2018-MultiAgentSystem*
 
-In the case of bugs, let us know or fix them and do a pull request.
+# AoseDevKit2018-Blocksworld
+
+This project is an implementation of the blocksworld domain with the AoseDevKit2018 framework.
+It contains Blocksworld domain-specific code: a Pddl domain file, java version of pddl actions, and a launcher script.
 
 ## Installing and running
 
@@ -32,12 +34,7 @@ To do so follow these steps:
 5. To run right click on file unitn.adk2018.blocksworld.BlocksworldLauncher and select:
     > Run as -> Java Application
 
-# AoseDevKit2018-Blocksworld
-
-This project is an implementation of the blocksworld domain with the AoseDevKit2018 framework.
-It contains Blocksworld domain-specific code: a Pddl domain file, java version of pddl actions, and a launcher script.
-
-## Quick start guide to the development of a different domain
+## Quick start guide for the development of a different domain
 
 Follow these steps to develop a pddl / multi-agent system for a specific domain:
 
