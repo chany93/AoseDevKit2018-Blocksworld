@@ -103,12 +103,34 @@ A launcher is used to set-up the simulation and eventually control it.
 Components to be configured are:
 
 1. the pddl domain
+	```java
+	PddlDomain pddlDomain = new PddlDomain("whatever-domain");
+	Environment.setPddlDomain(pddlDomain);
+	pddlDomain.addSupportedAction ("whateverActionName", WhateverAction.class);
+	```
 2. variables for objects to be used in the specific problem
-3. environment agent
-	- agent control loop
+```java
+```
+3. environment agent and other agents
+	- agent type
+		```java
+		Agent envAgent = new General_agent (env, true);
+		```
 	- supported goals and messages and available intentions to handle each of them
+		```java
+		envAgent.addSupportedEvent (Postman_goal.class, PostmanEverythingInParallel_intention.class);
+		```
 	- beliefset (the environment agent beliefset represents the world)
-4. other agents
+		```java
+		envAgent.getBeliefs().declareObject ( block_a );
+		envAgent.getBeliefs().declare ( Blocksworld.sayBlockOnTable(block_a) );
+		```
+4. register agents to the Environment and start their thread
+	```java
+	Environment.addAgent (envAgent);
+	Environment.setEnvironmentAgent (envAgent);
+	envAgent.startInSeparateThread ();
+	```
 
 The simulation is now configured and from the script it is possible to control it by interacting with the agents.
 This can be done by:
