@@ -113,13 +113,9 @@ Components to be configured are:
 ```
 3. environment agent and other agents
 	- agent type
-		```java
-		Agent envAgent = new General_agent (env, true);
-		```
+		```java Agent envAgent = new General_agent (env, true); ```
 	- supported goals and messages and available intentions to handle each of them
-		```java
-		envAgent.addSupportedEvent (Postman_goal.class, PostmanEverythingInParallel_intention.class);
-		```
+		```java envAgent.addSupportedEvent (Postman_goal.class, PostmanEverythingInParallel_intention.class); ```
 	- beliefset (the environment agent beliefset represents the world)
 		```java
 		envAgent.getBeliefs().declareObject ( block_a );
@@ -136,18 +132,18 @@ The simulation is now configured and from the script it is possible to control i
 This can be done by:
 
 - sending messages to environment agent or to other ones
-```java
+	```java
 	String[] pickupArgs = {r1, block_b, block_a};
 	Message msg0 = new PddlAction_msg( "God", env, "unstack", pickupArgs );
 	Environment.sendMessage ( msg0 );
-```
+	```
 - forces changes on the environment agent beliefset (to be avoided, it is preferred to send PddlClause messages handled internally by the env agent itself)
-```java
+	```java
 	envAgent.getBeliefs().declareObject( block_a );
 	envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_a) );
-```
+	```
 - wait for a specific amount of time according to simulation time
-```java
+	```java
 	System.err.println("First test wait, 2400 msecs, at " + envAgent.getAgentTime());
 	Observer w = new Observer {
 		@Override
@@ -162,7 +158,7 @@ This can be done by:
 		w.wait();
 	}
 	System.err.println("End of first test wait at " + envAgent.getAgentTime());
-```
+	```
 
 
 
