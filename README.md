@@ -8,7 +8,7 @@ The framework consists of three repositories:
 
 Introductory slides on the framework are available in the doc folder in the AoseDevKit2018-MultiAgentSystem repository.
 
-In the case of bugs to any of these, let us know or fix them and do a pull request.
+In the case of bugs, let us know or fix them and do a pull request.
 
 ## Installing and running
 
