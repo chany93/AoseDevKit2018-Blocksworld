@@ -113,12 +113,37 @@ Components to be configured are:
 	- beliefset (the environment agent beliefset represents the world)
 4. other agents
 
-The script can then start to interact with the agents during the simulation.
+The simulation is now configured and from the script it is possible to control it by interacting with the agents.
 This can be done by:
 
 - sending messages to environment agent or to other ones
+```java
+	String[] pickupArgs = {r1, block_b, block_a};
+	Message msg0 = new PddlAction_msg( "God", env, "unstack", pickupArgs );
+	Environment.sendMessage ( msg0 );
+```
 - forces changes on the environment agent beliefset (to be avoided, it is preferred to send PddlClause messages handled internally by the env agent itself)
+```java
+	envAgent.getBeliefs().declareObject( block_a );
+	envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_a) );
+```
 - wait for a specific amount of time according to simulation time
+```java
+	System.err.println("First test wait, 2400 msecs, at " + envAgent.getAgentTime());
+	Observer w = new Observer {
+		@Override
+		public void  update (Observable o, Object arg) {
+			synchronized (this) {
+				notifyAll();
+			}
+		}
+	};
+	envAgent.rescheduleTimer(w,  2400);
+	synchronized (w) {
+		w.wait();
+	}
+	System.err.println("End of first test wait at " + envAgent.getAgentTime());
+```
 
 
 
