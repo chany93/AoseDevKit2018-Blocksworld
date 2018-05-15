@@ -1,14 +1,16 @@
 # AoseDevKit2018
 
 The AoseDevKit2018 framework has been implemented for the course of Agent Oriented Software Engineering at the University Of Trento (2018).
-The framework consists of three repositories:
-- *AoseDevKit2018-MultiAgentSystem: https://github.com/marcorobol/AoseDevKit2018-MultiAgentSystem*
-- *AoseDevKit2018-Generic: https://github.com/marcorobol/AoseDevKit2018-Generic*
-- *AoseDevKit2018-Blocksworld: https://github.com/marcorobol/AoseDevKit2018-Blocksworld*
-
 Introductory slides on the framework are available in the doc folder in the AoseDevKit2018-MultiAgentSystem repository.
+The framework includes three repositories. In the case of bugs, let us know or fix them and do a pull request. Start exploring by looking at readme files of the projects in this order:
+- *AoseDevKit2018-Blocksworld: https://github.com/marcorobol/AoseDevKit2018-Blocksworld*
+- *AoseDevKit2018-Generic: https://github.com/marcorobol/AoseDevKit2018-Generic*
+- *AoseDevKit2018-MultiAgentSystem: https://github.com/marcorobol/AoseDevKit2018-MultiAgentSystem*
 
-In the case of bugs to any of these, let us know or fix them and do a pull request.
+# AoseDevKit2018-Blocksworld
+
+This project is an implementation of the blocksworld domain with the AoseDevKit2018 framework.
+It contains Blocksworld domain-specific code: a Pddl domain file, java version of pddl actions, and a launcher script.
 
 ## Installing and running
 
@@ -32,12 +34,7 @@ To do so follow these steps:
 5. To run right click on file unitn.adk2018.blocksworld.BlocksworldLauncher and select:
     > Run as -> Java Application
 
-# AoseDevKit2018-Blocksworld
-
-This project is an implementation of the blocksworld domain with the AoseDevKit2018 framework.
-It contains Blocksworld domain-specific code: a Pddl domain file, java version of pddl actions, and a launcher script.
-
-## Quick start guide to the development of a different domain
+## Quick start guide for the development of a different domain
 
 Follow these steps to develop a pddl / multi-agent system for a specific domain:
 
@@ -106,19 +103,67 @@ A launcher is used to set-up the simulation and eventually control it.
 Components to be configured are:
 
 1. the pddl domain
+	```java
+	PddlDomain pddlDomain = new PddlDomain("whatever-domain");
+	Environment.setPddlDomain(pddlDomain);
+	pddlDomain.addSupportedAction ("whateverActionName", WhateverAction.class);
+	```
 2. variables for objects to be used in the specific problem
-3. environment agent
-	- agent control loop
+	```java
+	String block_a = "a";
+	```
+3. environment agent and other agents
+	- agent type
+		```java
+		Agent envAgent = new General_agent (env, true);
+		```
 	- supported goals and messages and available intentions to handle each of them
+		```java
+		envAgent.addSupportedEvent (Postman_goal.class, PostmanEverythingInParallel_intention.class);
+		```
 	- beliefset (the environment agent beliefset represents the world)
-4. other agents
+		```java
+		envAgent.getBeliefs().declareObject ( block_a );
+		envAgent.getBeliefs().declare ( Blocksworld.sayBlockOnTable(block_a) );
+		```
+4. register agents to the Environment and start their thread
+	```java
+	Environment.addAgent (envAgent);
+	Environment.setEnvironmentAgent (envAgent);
+	envAgent.startInSeparateThread ();
+	```
 
-The script can then start to interact with the agents during the simulation.
+The simulation is now configured and from the script it is possible to control it by interacting with the agents.
 This can be done by:
 
 - sending messages to environment agent or to other ones
+	```java
+	String[] pickupArgs = {r1, block_b, block_a};
+	Message msg0 = new PddlAction_msg( "God", env, "unstack", pickupArgs );
+	Environment.sendMessage ( msg0 );
+	```
 - forces changes on the environment agent beliefset (to be avoided, it is preferred to send PddlClause messages handled internally by the env agent itself)
+	```java
+	envAgent.getBeliefs().declareObject( block_a );
+	envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_a) );
+	```
 - wait for a specific amount of time according to simulation time
+	```java
+	System.err.println("First test wait, 2400 msecs, at " + envAgent.getAgentTime());
+	Observer w = new Observer {
+		@Override
+		public void  update (Observable o, Object arg) {
+			synchronized (this) {
+				notifyAll();
+			}
+		}
+	};
+	envAgent.rescheduleTimer(w,  2400);
+	synchronized (w) {
+		w.wait();
+	}
+	System.err.println("End of first test wait at " + envAgent.getAgentTime());
+	```
 
 
 
