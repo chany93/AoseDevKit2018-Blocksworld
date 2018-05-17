@@ -42,7 +42,7 @@ Follow these steps to develop a pddl / multi-agent system for a specific domain:
 2. Possibly create a class with shortcut methods to act on your pddl domain (see Blocksworld.java)
 3. Implement a Java version of all the actions available in your domain (see Pickup_action.java)
 4. Eventually extend PddlStep_intention to provide implementations for specific actions of the domain (see PddlStepDoItByMyself_intention.java)
-5. Implement a main launcher script where agents are configured, started, and then messages are sent to them to have them acting (see BlocksworldLauncher0.java)
+5. Implement a main launcher script where agents are configured, started, and then request messages are sent to them (see BlocksworldLauncher0.java)
 
 ### Implementation of a Pddl action in Java
 
