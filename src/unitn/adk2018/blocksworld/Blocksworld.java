@@ -4,6 +4,14 @@ import unitn.adk2018.pddl.PddlClause;
 
 public class Blocksworld {
 	
+	public static PddlClause sayNotMe ( String hand ) {
+		return PddlClause.say("not-me", hand);
+	}
+	
+	public static PddlClause sayMe ( String hand ) {
+		return PddlClause.say("me", hand);
+	}
+	
 	public static PddlClause sayBlockOnTable ( String blockname ) {
 		return PddlClause.say("on-table", blockname);
 	}

@@ -101,6 +101,9 @@ public abstract class BlocksworldLauncher0 {
 		r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepUnstackAskHelp_intention.class);
 		r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepPutdownAskHelp_intention.class);
 		r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepDoItByMyself_intention.class);
+		// Beliefs
+		r1Agent.getBeliefs().declareObject( r1 );
+		r1Agent.getBeliefs().declare( Blocksworld.sayMe(r1) );
 		// Env
 		Environment.addAgent (r1Agent);
 		r1Agent.startInSeparateThread();

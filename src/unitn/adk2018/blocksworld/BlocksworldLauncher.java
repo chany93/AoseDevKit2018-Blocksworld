@@ -98,9 +98,11 @@ public abstract class BlocksworldLauncher {
 //		envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_b) );
 		// Setup 2
 		envAgent.getBeliefs().declare( Blocksworld.sayFree(r1) );
+		envAgent.getBeliefs().declare( Blocksworld.sayFree(r2) );
 		envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_a) );
 		envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_a) );
-		envAgent.getBeliefs().declare( Blocksworld.sayHolding(r2, block_b) );
+		envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_b) );
+		envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_b) );
 		// Env
 		Environment.addAgent (envAgent);
 		Environment.setEnvironmentAgent (envAgent);
@@ -126,6 +128,11 @@ public abstract class BlocksworldLauncher {
 		r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepUnstackAskHelp_intention.class);
 		r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepPutdownAskHelp_intention.class);
 		r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepDoItByMyself_intention.class);
+		// Beliefs
+		r1Agent.getBeliefs().declareObject( r1 );
+		r1Agent.getBeliefs().declareObject( r2 );
+		r1Agent.getBeliefs().declare( Blocksworld.sayMe(r2) );
+		r1Agent.getBeliefs().declare( Blocksworld.sayNotMe(r1) );
 		// Env
 		Environment.addAgent (r1Agent);
 		r1Agent.startInSeparateThread();
@@ -149,6 +156,11 @@ public abstract class BlocksworldLauncher {
 		r2Agent.addSupportedEvent(PddlStep_goal.class, PddlStepStackAskHelp_intention.class);
 		r2Agent.addSupportedEvent(PddlStep_goal.class, PddlStepUnstackAskHelp_intention.class);
 		r2Agent.addSupportedEvent(PddlStep_goal.class, PddlStepDoItByMyself_intention.class);
+		// Beliefs
+		r1Agent.getBeliefs().declareObject( r1 );
+		r1Agent.getBeliefs().declareObject( r2 );
+		r1Agent.getBeliefs().declare( Blocksworld.sayMe(r1) );
+		r1Agent.getBeliefs().declare( Blocksworld.sayNotMe(r2) );
 		// Env
 		Environment.addAgent (r2Agent);
 		r2Agent.startInSeparateThread();
