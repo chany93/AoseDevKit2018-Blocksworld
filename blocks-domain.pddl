@@ -18,18 +18,9 @@
 					 (not (free ?hand))
 				)
 	)
-	(:action askputdown
-		:parameters (?hand ?ob)
-		:precondition (and (holding ?hand ?ob) (not-me ?hand))
-		:effect (and (on-table ?ob)
-					 (clear ?ob)
-					 (not (holding ?hand ?ob))
-					 (free ?hand)
-				)
-	)
 	(:action putdown
 		:parameters (?hand ?ob)
-		:precondition (and (holding ?hand ?ob) (me ?hand))
+		:precondition (and (holding ?hand ?ob)) ;; putdown can also be requested to another agent
 		:effect (and (on-table ?ob)
 					 (clear ?ob)
 					 (not (holding ?hand ?ob))
@@ -48,7 +39,7 @@
 	)
 	(:action stack
 		:parameters (?hand ?ob ?y)
-		:precondition (and (holding ?hand ?ob) (clear ?y) (me ?hand))
+		:precondition (and (holding ?hand ?ob) (clear ?y) (me ?hand))  ;; stack can also be requested to another agent
 		:effect (and (on ?ob ?y)
 					 (clear ?ob)
 					 (not (holding ?hand ?ob))

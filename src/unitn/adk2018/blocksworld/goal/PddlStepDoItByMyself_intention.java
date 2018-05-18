@@ -8,8 +8,8 @@ public class PddlStepDoItByMyself_intention extends PddlStep_intention {
 	
 	@Override
 	public boolean context(Agent a, PddlStep_goal g) {
-		return ( g.action.equals("pickup") || g.action.equals("putdown") || g.action.equals("stack") || g.action.equals("unstack") ) //supported actions
-				&& g.args[0].equals( a.getName() ); // I personally have to do the action
+		return ( g.step.action.equals("pickup") || g.step.action.equals("putdown") || g.step.action.equals("stack") || g.step.action.equals("unstack") ) //supported actions
+				&& g.step.args[0].equals( a.getName() ); // I personally have to do the action
 	}
 	
 }
