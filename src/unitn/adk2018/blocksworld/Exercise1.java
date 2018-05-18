@@ -34,8 +34,6 @@ import unitn.adk2018.utils.Sleep;
 
 public abstract class Exercise1 {
 	
-	
-	// @params: [-d] actionInitializer domainFile problemFile 
 	public static void main(String[] args) throws InterruptedException {
 
 		Logger.A_MAX = 3;

@@ -35,8 +35,13 @@ import unitn.adk2018.pddl.PddlClause;
 import unitn.adk2018.pddl.PddlDomain;
 import unitn.adk2018.utils.Sleep;
 
+/**
+ * Overall example showing the use of goals and messages provided with the framework.
+ * It includes the use of blackbox planner and domain actions.
+ * @author Marco
+ *
+ */
 public abstract class BlocksworldLauncher {
-	
 	
 	public static void main(String[] args) throws InterruptedException {
 

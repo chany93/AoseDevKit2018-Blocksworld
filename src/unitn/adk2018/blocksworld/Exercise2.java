@@ -34,7 +34,6 @@ import unitn.adk2018.pddl.PddlDomain;
 
 public abstract class Exercise2 {
 	
-	
 	public static void main(String[] args) throws InterruptedException {
 		
 		Logger.A_MAX = 2;
