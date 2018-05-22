@@ -17,6 +17,7 @@ public class Stack_action extends PddlAction3Args {
 	public boolean effects(PddlWorld world, String hand, String ob, String y) {
 		world.declare( Blocksworld.sayBlockOn( ob, y ) );
 		world.declare( Blocksworld.sayBlockClear( ob ) );
+		world.undeclare( Blocksworld.sayBlockClear( y ) );
 		world.undeclare( Blocksworld.sayHolding( hand, ob ) );
 		world.declare( Blocksworld.sayFree( hand ) );
 		return true;

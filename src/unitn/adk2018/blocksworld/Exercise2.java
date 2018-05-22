@@ -36,7 +36,7 @@ public abstract class Exercise2 {
 	
 	public static void main(String[] args) throws InterruptedException {
 		
-		Logger.A_MAX = 2;
+		Logger.A_MAX = 3;
 		Logger.GANTT = true;
 		
 		/*
@@ -80,7 +80,6 @@ public abstract class Exercise2 {
 			r1Agent.addSupportedEvent(ReachPddlGoal_goal.class, ReachPddlGoal_intention.class);
 			r1Agent.addSupportedEvent(ExecutePddlPlan_goal.class, ExecutePddlPlan_intention.class);
 			// Step goals
-			r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepAskHelp_intention.class);
 			r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepAskHelp_intention.class);
 			r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepDoItByMyself_intention.class);
 			// Beliefs

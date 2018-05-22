@@ -45,7 +45,7 @@ public abstract class Example3 {
 		agent1.addSupportedEvent(Postman_goal.class, PostmanEverythingInParallel_intention.class);
 		agent1.addSupportedEvent(PddlAction_msg.class, PddlAction_intention.class);
 		// Manually setup initial beliefs of the agent
-		agent1.getBeliefs().declare( Blocksworld.sayFree("agent1") );
+		agent1.getBeliefs().declare( Blocksworld.sayHolding("agent1", "a") );
 		agent1.getBeliefs().declare( Blocksworld.sayBlockOnTable("a") );
 		agent1.getBeliefs().declare( Blocksworld.sayBlockClear("a") );
 		Environment.addAgent (agent1);
