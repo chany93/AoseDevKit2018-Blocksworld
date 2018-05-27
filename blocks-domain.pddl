@@ -42,6 +42,7 @@
 		:precondition (and (holding ?hand ?ob) (clear ?y) (me ?hand))  ;; stack can also be requested to another agent
 		:effect (and (on ?ob ?y)
 					 (clear ?ob)
+		             (not (clear ?y))
 					 (not (holding ?hand ?ob))
 					 (free ?hand)
 				)
