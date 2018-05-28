@@ -33,7 +33,7 @@ import unitn.adk2018.generic.message.Sensing_msg;
 import unitn.adk2018.pddl.PddlClause;
 import unitn.adk2018.pddl.PddlDomain;
 
-public abstract class Exercise3Coordinator {
+public abstract class Exercise3CoordinatorVariant {
 	
 	public static void main(String[] args) throws InterruptedException {
 		
@@ -61,9 +61,12 @@ public abstract class Exercise3Coordinator {
 		String block_b = "b";
 		String block_c = "c";
 		String block_d = "d";
+		String block_e = "e";
+		String block_f = "f";
 		String env = "env";
 		String r1 = "r1";
 		String r2 = "r2";
+		String r3 = "r3";
 		String coordinator = "coordinator";
 		
 		
@@ -79,16 +82,7 @@ public abstract class Exercise3Coordinator {
 			r1Agent.addSupportedEvent(Clause_msg.class, Clause_intention.class);
 			r1Agent.addSupportedEvent(Request_msg.class, Request_intention.class);
 			// Goals
-//			r1Agent.addSupportedEvent(ReachPddlGoal_goal.class, ReachPddlGoal_intention.class);
-//			r1Agent.addSupportedEvent(ExecutePddlPlan_goal.class, ExecutePddlPlan_intention.class);
-			// Step goals
-//			r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepAskHelp_intention.class);
 			r1Agent.addSupportedEvent(PddlStep_goal.class, PddlStepDoItByMyself_intention.class);
-			// Beliefs
-//			r1Agent.getBeliefs().declareObject( r1 );
-//			r1Agent.getBeliefs().declareObject( r2 );
-//			r1Agent.getBeliefs().declare( Blocksworld.sayMe(r1) );
-//			r1Agent.getBeliefs().declare( Blocksworld.sayNotMe(r2) );
 			// Env
 			Environment.addAgent (r1Agent);
 			r1Agent.startInSeparateThread();
@@ -107,19 +101,29 @@ public abstract class Exercise3Coordinator {
 			r2Agent.addSupportedEvent(Clause_msg.class, Clause_intention.class);
 			r2Agent.addSupportedEvent(Request_msg.class, Request_intention.class);
 			// Goals
-//			r2Agent.addSupportedEvent(ReachPddlGoal_goal.class, ReachPddlGoal_intention.class);
-//			r2Agent.addSupportedEvent(ExecutePddlPlan_goal.class, ExecutePddlPlan_intention.class);
-			// Step goals
-//			r2Agent.addSupportedEvent(PddlStep_goal.class, PddlStepAskHelp_intention.class);
 			r2Agent.addSupportedEvent(PddlStep_goal.class, PddlStepDoItByMyself_intention.class);
-			// Beliefs
-//			r2Agent.getBeliefs().declareObject( r1 );
-//			r2Agent.getBeliefs().declareObject( r2 );
-//			r2Agent.getBeliefs().declare( Blocksworld.sayMe(r2) );
-//			r2Agent.getBeliefs().declare( Blocksworld.sayNotMe(r1) );
 			// Env
 			Environment.addAgent (r2Agent);
 			r2Agent.startInSeparateThread();
+		}
+		
+		
+		
+		/*
+		 * Setup robot 3 agent
+		 */
+		{
+			Agent r3Agent = new General_agent(r3, true);
+			r3Agent.addSupportedEvent(Postman_goal.class, PostmanOneRequestAtTime_intention.class);
+			// Messages
+			r3Agent.addSupportedEvent(Clause_msg.class, ClauseBlockOn_intention.class);
+			r3Agent.addSupportedEvent(Clause_msg.class, Clause_intention.class);
+			r3Agent.addSupportedEvent(Request_msg.class, Request_intention.class);
+			// Goals
+			r3Agent.addSupportedEvent(PddlStep_goal.class, PddlStepDoItByMyself_intention.class);
+			// Env
+			Environment.addAgent (r3Agent);
+			r3Agent.startInSeparateThread();
 		}
 		
 		
@@ -158,6 +162,7 @@ public abstract class Exercise3Coordinator {
 			// Beliefs
 			envAgent.getBeliefs().declareObject( r1 );
 			envAgent.getBeliefs().declareObject( r2 );
+			envAgent.getBeliefs().declareObject( r3 );
 			envAgent.getBeliefs().declareObject( block_a );
 			envAgent.getBeliefs().declareObject( block_b );
 			envAgent.getBeliefs().declareObject( block_c );
@@ -166,18 +171,24 @@ public abstract class Exercise3Coordinator {
 			 * Initial state of the world:
 			 * R1: -
 			 * R2: -
-			 *         D
-			 *         C
-			 *         B
-			 * Table:  A
+			 *          
+			 * Table:  A B C D E F
 			 */
 			envAgent.getBeliefs().declare( Blocksworld.sayFree(r1) );					// R1
 			envAgent.getBeliefs().declare( Blocksworld.sayFree(r2) );					// R2
+			envAgent.getBeliefs().declare( Blocksworld.sayFree(r3) );					// R3
 			envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_a) );		// A
-			envAgent.getBeliefs().declare( Blocksworld.sayBlockOn(block_b, block_a) );	// B
-			envAgent.getBeliefs().declare( Blocksworld.sayBlockOn(block_c, block_b) );	// C
-			envAgent.getBeliefs().declare( Blocksworld.sayBlockOn(block_d, block_c) );	// D
+			envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_a) );		// A
+			envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_b) );		// B
+			envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_b) );		// B
+			envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_c) );		// C
+			envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_c) );		// C
+			envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_d) );		// D
 			envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_d) );		// D
+			envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_e) );		// E
+			envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_e) );		// E
+			envAgent.getBeliefs().declare( Blocksworld.sayBlockOnTable(block_f) );		// F
+			envAgent.getBeliefs().declare( Blocksworld.sayBlockClear(block_f) );		// F
 			// Env
 			Environment.addAgent (envAgent);
 			Environment.setEnvironmentAgent (envAgent);
@@ -199,7 +210,7 @@ public abstract class Exercise3Coordinator {
 		 *         A
 		 *         B
 		 */
-		PddlClause[] pddlGoal1 = { Blocksworld.sayBlockOn(block_a, block_b) };
+		PddlClause[] pddlGoal1 = { Blocksworld.sayBlockOn(block_a, block_b), Blocksworld.sayBlockOn(block_c, block_d), Blocksworld.sayBlockOn(block_e, block_f) };
 		Goal g1 = new ReachPddlGoal_goal( pddlGoal1 );
 		Message msg1 = new Request_msg( "God", coordinator, g1 );
 		Environment.sendMessage ( msg1 );
