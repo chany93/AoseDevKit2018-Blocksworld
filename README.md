@@ -2,7 +2,7 @@
 
 ## Simple Contract Net Protocol Implementation
 
-See presentation 
+See presentation for description - Presentation.pptx
 
 
 
