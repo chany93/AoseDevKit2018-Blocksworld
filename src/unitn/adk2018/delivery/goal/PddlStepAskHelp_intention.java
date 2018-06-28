@@ -1,8 +1,7 @@
-package unitn.adk2018.blocksworld.goal;
+package unitn.adk2018.delivery.goal;
 
 import unitn.adk2018.Agent;
 import unitn.adk2018.Environment;
-import unitn.adk2018.blocksworld.Blocksworld;
 import unitn.adk2018.event.Goal;
 import unitn.adk2018.event.Message;
 import unitn.adk2018.generic.goal.PddlStep_goal;
@@ -16,7 +15,7 @@ public class PddlStepAskHelp_intention extends Intention<PddlStep_goal> {
 	
 	@Override
 	public boolean context(Agent a, PddlStep_goal g) {
-		return (g.step.action.equals("putdown") || g.step.action.equals("stack") ) //putdown or unstack
+		return (g.step.action.equals("prepare-food") || g.step.action.equals("go-to") || g.step.action.equals("deliver-food") || g.step.action.equals("pickup-food" ) ) //deliver-food
 				&& !g.step.args[0].equals( a.getName() ); //its not me that has to do the action
 	}
 	
