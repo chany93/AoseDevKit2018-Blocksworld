@@ -41,7 +41,7 @@ import unitn.adk2018.pddl.PddlClause;
 import unitn.adk2018.pddl.PddlDomain;
 import unitn.adk2018.utils.Sleep;
 
-public abstract class ServedClient1 {
+public abstract class ServedClient {
 	
 	public static void main(String[] args) throws InterruptedException {
 		
